@@ -1,5 +1,7 @@
 package ru.stqa.pft.sandbox;
 
+import javax.xml.transform.Result;
+
 public class First{
 	
 	public static void main (String[] args) {
@@ -12,10 +14,19 @@ public class First{
 
 		Rectangle r = new Rectangle(4,6);
 		System.out.println("P прямоугольника со стоонами " + r.a + " и " + r.b + " = " + r.area());
+
+		Point P = new Point ();
+		P.x1 = 0;
+		P.y1 = 1;
+		P.x2 = 2;
+		P.y2 = 4;
+		System.out.println("Расстояние между точками = " + distance(P));
+	}
+	public static double distance (Point P){
+		return Math.sqrt((P.x2-P.x1)*(P.x2-P.x1)+(P.y2-P.y1)*(P.y2-P.y1));
 	}
 	
 	public static void hello (String somebody) {
 		System.out.println("Hello, " + somebody +"!");
 	}
-
 }
