@@ -9,10 +9,8 @@ public class PointTest {
   @Test
   public void testArea(){
     Point P = new Point();
-    P.x1 = 0;
-    P.y1 = 1;
-    P.x2 = 2;
-    P.y2 = 4;
-    Assert.assertEquals(P.distance(), 3.605551275463989);
+    P.x = 2.1;
+    P.y = 3.5;
+    Assert.assertEquals(P.distance(4.1, 4.9), 2.4413111231467406); //Проверка, что расстояние вычислино верно
   }
 }
