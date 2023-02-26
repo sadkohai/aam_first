@@ -1,6 +1,7 @@
 package ru.stqa.pft.sandbox;
 
 import javax.xml.transform.Result;
+import java.awt.geom.Point2D;
 
 public class First{
 	
@@ -15,12 +16,10 @@ public class First{
 		Rectangle r = new Rectangle(4,6);
 		System.out.println("P прямоугольника со стоонами " + r.a + " и " + r.b + " = " + r.area());
 
-		Point P = new Point ();
-		P.x1 = 0;
-		P.y1 = 1;
-		P.x2 = 2;
-		P.y2 = 4;
-		System.out.println("Расстояние между точками = " + P.distance());
+		Point p1 = new Point();
+		p1.x = 2.1;
+		p1.y = 3.5;
+		System.out.println("Расстояние между точками " + "Point1" + "("  + p1.x + ", " + p1.y + ")" + " и Point2" +  "(4.1, 4.9)" + " = " + p1.distance(4.1, 4.9));
 	}
 	
 	public static void hello (String somebody) {
