@@ -10,7 +10,7 @@ public class Point {
     return Point(x1, y1);
   }
 
-  public double distance(double x, double y) {
+  public double distance(Point p2) {
     return Math.sqrt((x - this.x) * (x - this.x) + (y - this.y) * (y - this.y));
   }
 }
