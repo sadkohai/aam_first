@@ -1,4 +1,4 @@
-package ru.stqa.pft.addressbook;
+package ru.stqa.pft.addressbook; //ready
 
 import java.util.concurrent.TimeUnit;
 
@@ -32,7 +32,6 @@ public class GroupCreationTests {
     driver.findElement(By.name("pass")).sendKeys(password);
     driver.findElement(By.xpath("//input[@value='Login']")).click();
   }
-
   @Test
   public void testGroupCreation() throws Exception {
     gotoGroupPage();
