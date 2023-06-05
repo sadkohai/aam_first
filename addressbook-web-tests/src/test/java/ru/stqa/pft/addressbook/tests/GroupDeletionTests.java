@@ -1,15 +1,15 @@
-package ru.stqa.pft.addressbook.tests;
+ package ru.stqa.pft.addressbook.tests;
 
-import org.testng.annotations.*;
+ import org.testng.annotations.*;
 
-public class GroupDeletionTests extends TestBase {
+ public class GroupDeletionTests extends TestBase {
 
-  @Test
-  public void testGroupDeletionTests() throws Exception {
-    app.getNavigationHelper().gotoGroupPage();
-    app.getGroupHelper().selectGroup();
-    app.getGroupHelper().deleteSelectedGroups();
-    app.getGroupHelper().returnToGroupPage();
-  }
+   @Test
+   public void testGroupDeletionTests() throws Exception {
+     app.getNavigationHelper().gotoGroupPage();
+     app.getGroupHelper().selectGroup();
+     app.getGroupHelper().deleteSelectedGroups();
+     app.getGroupHelper().returnToGroupPage();
+   }
 
-}
+ }

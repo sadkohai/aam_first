@@ -1,36 +1,36 @@
- package ru.stqa.pft.addressbook.appmanager;
+  package ru.stqa.pft.addressbook.appmanager;
 
- import org.openqa.selenium.WebDriver;
- import org.openqa.selenium.firefox.FirefoxDriver;
+  import org.openqa.selenium.WebDriver;
+  import org.openqa.selenium.firefox.FirefoxDriver;
 
- import java.util.concurrent.TimeUnit;
+  import java.util.concurrent.TimeUnit;
 
- public class ApplicationManager {
-   WebDriver wd;
+  public class ApplicationManager {
+    WebDriver wd;
 
-   private SessionHelper sessionHelper;
-   private  NavigationHelper navigationHelper;
-   private  groupHelper groupHelper;
+    private SessionHelper sessionHelper;
+    private  NavigationHelper navigationHelper;
+    private  groupHelper groupHelper;
 
-   public void init() {
-     wd = new FirefoxDriver();
-     wd.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-     wd.get("http://localhost/addressbook/group.php");
-     groupHelper = new groupHelper(wd);
-     navigationHelper = new NavigationHelper(wd);
-     sessionHelper = new SessionHelper(wd);
-     sessionHelper.Login("admin", "secret");
-   }
+    public void init() {
+      wd = new FirefoxDriver();
+      wd.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+      wd.get("http://localhost/addressbook/group.php");
+      groupHelper = new groupHelper(wd);
+      navigationHelper = new NavigationHelper(wd);
+      sessionHelper = new SessionHelper(wd);
+      sessionHelper.Login("admin", "secret");
+    }
 
-   public void stop() {
-     wd.quit();
-   }
+    public void stop() {
+      wd.quit();
+    }
 
-   public groupHelper getGroupHelper() {
-     return groupHelper;
-   }
+    public groupHelper getGroupHelper() {
+      return groupHelper;
+    }
 
-   public NavigationHelper getNavigationHelper() {
-     return navigationHelper;
-   }
- }
+    public NavigationHelper getNavigationHelper() {
+      return navigationHelper;
+    }
+  }
