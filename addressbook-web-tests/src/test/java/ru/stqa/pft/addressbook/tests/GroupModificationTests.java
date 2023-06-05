@@ -6,11 +6,11 @@ import ru.stqa.pft.addressbook.model.groupData;
 public class GroupModificationTests extends TestBase {
 
   @Test
-  public void testGroupModification() {
+  public void testGroupModification() throws Exception {
     app.getNavigationHelper().gotoGroupPage();
     app.getGroupHelper().selectGroup();
     app.getGroupHelper().initGroupModification();
-    app.getGroupHelper().fillGroupForm(new groupData("test1", "test2", "test3"));
+    app.getGroupHelper().fillGroupForm(new groupData("tested1", "tested2", "tested3"));
     app.getGroupHelper().submitGroupModification();
     app.getGroupHelper().returnToGroupPage();
   }

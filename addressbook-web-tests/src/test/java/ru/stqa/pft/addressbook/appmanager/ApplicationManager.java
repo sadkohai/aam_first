@@ -26,7 +26,7 @@
      wd.quit();
    }
 
-   public ru.stqa.pft.addressbook.appmanager.groupHelper getGroupHelper() {
+   public groupHelper getGroupHelper() {
      return groupHelper;
    }
 
