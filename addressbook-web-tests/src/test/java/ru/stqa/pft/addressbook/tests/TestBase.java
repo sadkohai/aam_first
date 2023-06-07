@@ -4,7 +4,7 @@
   import org.testng.annotations.BeforeClass;
   import ru.stqa.pft.addressbook.appmanager.ApplicationManager;
 
-  public class TestBase extends ApplicationManager {
+  public class TestBase {
 
     protected final ApplicationManager app = new ApplicationManager();
 
@@ -18,4 +18,7 @@
       app.stop();
     }
 
+    public ApplicationManager getApp() {
+      return app;
+    }
   }

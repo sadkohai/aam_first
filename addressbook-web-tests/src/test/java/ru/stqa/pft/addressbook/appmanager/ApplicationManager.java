@@ -9,8 +9,9 @@
     WebDriver wd;
 
     private SessionHelper sessionHelper;
-    private  NavigationHelper navigationHelper;
-    private  groupHelper groupHelper;
+    private NavigationHelper navigationHelper;
+    private groupHelper groupHelper;
+    private ContactHelper contactHelper;
 
     public void init() {
       wd = new FirefoxDriver();
@@ -20,6 +21,7 @@
       navigationHelper = new NavigationHelper(wd);
       sessionHelper = new SessionHelper(wd);
       sessionHelper.Login("admin", "secret");
+      contactHelper = new ContactHelper(wd);
     }
 
     public void stop() {
@@ -32,5 +34,9 @@
 
     public NavigationHelper getNavigationHelper() {
       return navigationHelper;
+    }
+
+    public ContactHelper getContactHelper() {
+      return contactHelper;
     }
   }
