@@ -8,6 +8,9 @@
    @Test
    public void testGroupModification() throws Exception {
      app.getNavigationHelper().gotoGroupPage();
+     if (!app.getGroupHelper().isThereAGroup()){
+       app.getGroupHelper().createGroup(new groupData("test1", null, null));
+     }
      app.getGroupHelper().selectGroup();
      app.getGroupHelper().initGroupModification();
      app.getGroupHelper().fillGroupForm(new groupData("tested1", "tested2", "tested3"));

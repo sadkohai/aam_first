@@ -1,12 +1,12 @@
   package ru.stqa.pft.addressbook.appmanager;
 
   import org.openqa.selenium.WebDriver;
-  import org.openqa.selenium.firefox.FirefoxDriver;
   import org.openqa.selenium.chrome.ChromeDriver;
   import org.openqa.selenium.edge.EdgeDriver;
-  import java.util.concurrent.TimeUnit;
-
+  import org.openqa.selenium.firefox.FirefoxDriver;
   import org.openqa.selenium.remote.Browser;
+
+  import java.util.concurrent.TimeUnit;
 
 
   public class ApplicationManager {
@@ -30,7 +30,7 @@
       } else if (browser.equals (Browser.EDGE)) {
         wd = new EdgeDriver();
       }
-      wd.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+      wd.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
       wd.get("http://localhost/addressbook/");
       groupHelper = new groupHelper(wd);
       contactHelper = new ContactHelper(wd);

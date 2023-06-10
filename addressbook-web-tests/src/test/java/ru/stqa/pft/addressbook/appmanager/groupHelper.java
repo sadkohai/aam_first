@@ -33,7 +33,7 @@
     }
 
     public void selectGroup() {
-      click(By.name("selected[]"));
+      click(By.xpath("//div[@id='content']/form/span/input"));
     }
 
     public void initGroupModification() {
@@ -42,5 +42,16 @@
 
     public void submitGroupModification() {
       click(By.name("update"));
+    }
+
+    public void createGroup(groupData group) {
+      initGroupCreation();
+      fillGroupForm(group);
+      submitGroupCreation();
+      returnToGroupPage();
+    }
+
+    public boolean isThereAGroup() {
+      return isElementPresent(By.name("selected[]"));
     }
   }
