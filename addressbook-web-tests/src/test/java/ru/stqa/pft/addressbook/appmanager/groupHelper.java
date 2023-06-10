@@ -33,7 +33,7 @@
     }
 
     public void selectGroup() {
-      click(By.xpath("//div[@id='content']/form/span/input"));
+      click(By.name("selected[]"));
     }
 
     public void initGroupModification() {
@@ -48,7 +48,6 @@
       initGroupCreation();
       fillGroupForm(group);
       submitGroupCreation();
-      returnToGroupPage();
     }
 
     public boolean isThereAGroup() {
