@@ -7,7 +7,7 @@
 
   public class TestBase {
 
-    protected final ApplicationManager app = new ApplicationManager(BrowserType.CHROME);
+    protected final ApplicationManager app = new ApplicationManager(BrowserType.FIREFOX);
 
     @BeforeClass(alwaysRun = true)
     public void setUp() throws Exception {

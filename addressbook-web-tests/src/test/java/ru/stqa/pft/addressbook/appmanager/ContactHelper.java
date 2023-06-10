@@ -37,7 +37,7 @@ public class ContactHelper extends HelperBase{
   }
 
   public void selectContact() {
-    click(By.id("5"));
+    click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td/input"));
   }
 
   public void deleteSelectedContact() {
