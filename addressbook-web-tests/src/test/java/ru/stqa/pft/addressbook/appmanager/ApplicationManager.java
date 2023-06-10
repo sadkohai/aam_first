@@ -6,8 +6,6 @@
   import org.openqa.selenium.edge.EdgeDriver;
   import java.util.concurrent.TimeUnit;
 
-  import org.openqa.selenium.opera.OperaDriver;
-  import org.openqa.selenium.remote.BrowserType;
   import org.openqa.selenium.remote.Browser;
 
 
@@ -18,18 +16,18 @@
     private NavigationHelper navigationHelper;
     private groupHelper groupHelper;
     private ContactHelper contactHelper;
-    private final String browser;
+    private final Browser browser;
 
-    public ApplicationManager(String browser) {
+    public ApplicationManager(Browser browser) {
       this.browser = browser;
     }
 
     public void init() {
-      if (browser == BrowserType.FIREFOX) {
+      if (browser.equals(Browser.FIREFOX)) {
         wd = new FirefoxDriver();
-      } else if (browser == BrowserType.CHROME) {
+      } else if (browser.equals(Browser.CHROME)) {
         wd = new ChromeDriver();
-      } else if (browser == BrowserType.EDGE) {
+      } else if (browser.equals (Browser.EDGE)) {
         wd = new EdgeDriver();
       }
       wd.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
