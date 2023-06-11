@@ -3,20 +3,41 @@
   import java.util.Objects;
 
   public final class contactData {
+    private int id;
     private final String firstName;
     private final String lastName;
     private final String adress;
     private final String email;
     private final String mobile;
-    private final String group;
 
-    public contactData(String firstName, String lastName, String adress, String email, String mobile, String group) {
+  //  private final String group;
+
+    public void setId(int id) {
+      this.id = id;
+    }
+
+    public int getId() {
+      return id;
+    }
+
+    public contactData(String firstName, String lastName, String adress, String email, String mobile/*, String group*/) {
+      this.id = Integer.MAX_VALUE;
       this.firstName = firstName;
       this.lastName = lastName;
       this.adress = adress;
       this.email = email;
       this.mobile = mobile;
-      this.group = group;
+    //  this.group = group;
+    }
+
+    public contactData(Integer id, String firstName, String lastName, String adress, String email, String mobile/*, String group*/) {
+      this.id = id;
+      this.firstName = firstName;
+      this.lastName = lastName;
+      this.adress = adress;
+      this.email = email;
+      this.mobile = mobile;
+     // this.group = group;
     }
 
     public String getFirstName() {
@@ -39,9 +60,9 @@
       return mobile;
     }
 
-    public String getGroup() {
+  /*  public String getGroup() {
       return group;
-    }
+    } */
 
     @Override
     public boolean equals(Object obj) {
@@ -52,24 +73,26 @@
               Objects.equals(this.lastName, that.lastName) &&
               Objects.equals(this.adress, that.adress) &&
               Objects.equals(this.email, that.email) &&
-              Objects.equals(this.mobile, that.mobile) &&
-              Objects.equals(this.group, that.group);
+              Objects.equals(this.mobile, that.mobile); //&&
+      //        Objects.equals(this.group, that.group);
     }
 
     @Override
     public int hashCode() {
-      return Objects.hash(firstName, lastName, adress, email, mobile, group);
+      return Objects.hash(firstName, lastName, adress, email, mobile);
     }
 
     @Override
     public String toString() {
       return "contactData[" +
-              "firstName=" + firstName + ", " +
-              "lastName=" + lastName + ", " +
-              "adress=" + adress + ", " +
-              "email=" + email + ", " +
-              "mobile=" + mobile + ", " +
-              "group=" + group + ']';
+              "id=" + id +
+              "firstName=" + firstName + '\'' +
+              "lastName=" + lastName + '\'' +
+              "adress=" + adress + '\'' +
+              "email=" + email + '\'' +
+              "mobile=" + mobile + '\'' +
+        //      "group=" + group + + '\'' +
+              '}';
     }
 
     }

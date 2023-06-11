@@ -30,8 +30,8 @@
       } else if (browser.equals (Browser.EDGE)) {
         wd = new EdgeDriver();
       }
-      wd.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
-      wd.get("http://localhost/addressbook/");
+      wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+      wd.get("http://localhost/addressbook");
       groupHelper = new groupHelper(wd);
       contactHelper = new ContactHelper(wd);
       navigationHelper = new NavigationHelper(wd);
