@@ -7,10 +7,7 @@
 
    @Test
    public void testContactCreationTests() throws Exception {
-     app.getContactHelper().gotoAddContact();
-     app.getContactHelper().fillContactForm(new contactData("Mihalcov", "Vladimir", "Poland, 10", "testmailcontact@mail.ru", "89999757811", "test1"), true );
-     app.getContactHelper().submitContactCreation();
-     app.getNavigationHelper().gotoHomePage();
+     app.getContactHelper().createContact(new contactData("Antonijo", "Huan", "Three city", "rlymile@mai.ru", "89261231122", "test1"));
    }
 
  }

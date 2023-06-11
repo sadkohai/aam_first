@@ -11,7 +11,7 @@
     }
 
     public void returnToGroupPage() {
-      click(By.linkText("Logout"));
+      click(By.linkText("group page"));
     }
 
     public void submitGroupCreation() {
@@ -48,6 +48,7 @@
       initGroupCreation();
       fillGroupForm(group);
       submitGroupCreation();
+      returnToGroupPage();
     }
 
     public boolean isThereAGroup() {
