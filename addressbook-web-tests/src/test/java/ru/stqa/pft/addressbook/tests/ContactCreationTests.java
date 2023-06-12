@@ -13,6 +13,11 @@
    public void testContactCreationTests() throws Exception {
      List<contactData> before = app.getContactHelper().getContactList();
      contactData contact = new contactData("Antonijo", "Huan", null, null, null);
+     app.getContactHelper().gotoAddContact();
+     if (! app.getContactHelper().chooseGroup()) {
+       new GroupCreationTests().testGroupCreation();
+       app.getContactHelper().chooseGroup();
+     }
      app.getContactHelper().createContact(contact);
      List<contactData> after = app.getContactHelper().getContactList();
      Assert.assertEquals(after.size(), before.size() + 1);
@@ -22,7 +27,6 @@
      before.sort(byId);
      after.sort(byId);
      Assert.assertEquals(after, before);
-
    }
 
  }

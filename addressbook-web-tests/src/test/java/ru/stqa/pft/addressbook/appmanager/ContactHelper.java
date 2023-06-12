@@ -65,22 +65,26 @@ public class ContactHelper extends HelperBase{
    submitContactCreation();
    returnToContactPage();
   }
+  public boolean chooseGroup() {
+    click(By.xpath("/html/body/div/div[4]/form/select[5]"));
+    if (isElementPresent(By.xpath("/html/body/div/div[4]/form/select[5]/option[2]"))) {
+      click(By.xpath("/html/body/div/div[4]/form/select[5]/option[2]"));
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   public boolean isThereAContact() {
     return isElementPresent(By.name("selected[]"));
   }
 
-  public int getContactCount() {
-    return wd.findElements(By.name("selected[]")).size();
-  }
   public List<contactData> getContactList() {
     List<contactData> contacts = new ArrayList<contactData>();
     List<WebElement> elements = wd.findElements(By.xpath("//*[@name=\"entry\"]")); // 1
     for (WebElement element : elements) {
       String name = element.findElement(By.cssSelector("tbody > tr > td + td + td")).getText(); // 1
-    //  System.out.println("firstname" + name);
       String lastname = element.findElement(By.cssSelector("tbody > tr > td + td")).getText(); // 1
-    //  System.out.println("lastname" + lastname);
       int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
       contactData contact = new contactData(id, name, lastname, null, null, null);
       contacts.add(contact);
