@@ -16,6 +16,7 @@
      app.getContactHelper().gotoAddContact();
      if (! app.getContactHelper().chooseGroup()) {
        new GroupCreationTests().testGroupCreation();
+       app.getContactHelper().gotoAddContact();
        app.getContactHelper().chooseGroup();
      }
      app.getContactHelper().createContact(contact);
