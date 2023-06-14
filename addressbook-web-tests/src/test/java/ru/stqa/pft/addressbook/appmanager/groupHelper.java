@@ -14,10 +14,12 @@
       super(wd);
     }
 
-    public void returnToGroupPage() {
+    public void returnToGroupPage() { //возвращение по кнопке после редактирования
       click(By.linkText("group page"));
     }
-
+    public void returnToGroup() {   //переход по навигационному меню, раздел groups
+      click(By.linkText("groups"));
+    }
     public void submitGroupCreation() {
       click(By.name("submit"));
     }
@@ -52,12 +54,14 @@
       initGroupCreation();
       fillGroupForm(group);
       submitGroupCreation();
-      returnToGroupPage();
+      groupCache = null;
+      returnToGroup();
     }
 
     public void delete(groupData group) {
       selectGroupById(group.getId());
       deleteSelectedGroups();
+      groupCache = null;
       returnToGroupPage();
     }
 
@@ -66,24 +70,31 @@
       initGroupModification();
       fillGroupForm(group);
       submitGroupModification();
+      groupCache = null;
       returnToGroupPage();
     }
     public boolean isThereAGroup() {
       return isElementPresent(By.name("selected[]"));
     }
 
-    public int getGroupCount() {
+    public int Count() {
       return wd.findElements(By.name("selected[]")).size();
     }
 
+    private Groups groupCache = null;
+
     public Groups all() {
-      Groups groups = new Groups();
+      if (groupCache != null) {
+        return new Groups(groupCache);
+      }
+
+      groupCache = new Groups();
       List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
       for (WebElement element : elements){
         String name = element.getText();
         int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-        groups.add(new groupData().withId(id).withName(name));
+        groupCache.add(new groupData().withId(id).withName(name));
       }
-      return groups;
+      return new Groups(groupCache);
     }
   }
