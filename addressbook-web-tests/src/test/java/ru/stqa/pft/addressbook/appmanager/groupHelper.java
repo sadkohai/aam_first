@@ -3,9 +3,9 @@
   import org.openqa.selenium.By;
   import org.openqa.selenium.WebDriver;
   import org.openqa.selenium.WebElement;
+  import ru.stqa.pft.addressbook.model.Groups;
   import ru.stqa.pft.addressbook.model.groupData;
 
-  import java.util.ArrayList;
   import java.util.List;
 
   public class groupHelper extends HelperBase{
@@ -36,8 +36,8 @@
       click(By.name("delete"));
     }
 
-    public void selectGroup(int index) {
-      wd.findElements(By.name("selected[]")).get(index).click();
+    public void selectGroupById(int id) {
+      wd.findElement(By.cssSelector("input[value='"+id +"']")).click();
     }
 
     public void initGroupModification() {
@@ -48,13 +48,26 @@
       click(By.name("update"));
     }
 
-    public void createGroup(groupData group) {
+    public void create(groupData group) {
       initGroupCreation();
       fillGroupForm(group);
       submitGroupCreation();
       returnToGroupPage();
     }
 
+    public void delete(groupData group) {
+      selectGroupById(group.getId());
+      deleteSelectedGroups();
+      returnToGroupPage();
+    }
+
+    public void modify(groupData group) {
+      selectGroupById(group.getId());
+      initGroupModification();
+      fillGroupForm(group);
+      submitGroupModification();
+      returnToGroupPage();
+    }
     public boolean isThereAGroup() {
       return isElementPresent(By.name("selected[]"));
     }
@@ -63,14 +76,13 @@
       return wd.findElements(By.name("selected[]")).size();
     }
 
-    public List<groupData> getGroupList() {
-      List<groupData> groups = new ArrayList<>();
+    public Groups all() {
+      Groups groups = new Groups();
       List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
       for (WebElement element : elements){
         String name = element.getText();
         int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-        groupData group = new groupData(id, name, null, null);
-        groups.add(group);
+        groups.add(new groupData().withId(id).withName(name));
       }
       return groups;
     }

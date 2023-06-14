@@ -43,15 +43,15 @@
       wd.quit();
     }
 
-    public groupHelper getGroupHelper() {
+    public groupHelper group() {
       return groupHelper;
     }
 
-    public NavigationHelper getNavigationHelper() {
+    public NavigationHelper GoTo() {
       return navigationHelper;
     }
 
-    public ContactHelper getContactHelper() {
+    public ContactHelper contact() {
       return contactHelper;
     }
   }

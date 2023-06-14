@@ -15,6 +15,7 @@ dependencies {
     implementation 'ch.qos.logback:logback-classic:1.2.10'
     implementation 'mysql:mysql-connector-java:8.0.28'
     implementation 'org.bedework:hibernate-core:5.2.5.1FinalBwPatched'
+    implementation 'org.hamcrest:hamcrest:2.2'
 }
 
 test {

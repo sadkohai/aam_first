@@ -3,42 +3,19 @@
   import java.util.Objects;
 
   public final class contactData {
-    private int id;
-    private final String firstName;
-    private final String lastName;
-    private final String adress;
-    private final String email;
-    private final String mobile;
+    private int id = Integer.MAX_VALUE;
+    private String firstName;
+    private String lastName;
+    private String adress;
+    private String email;
+    private String mobile;
 
   //  private final String group;
-
-    public void setId(int id) {
-      this.id = id;
-    }
 
     public int getId() {
       return id;
     }
 
-    public contactData(String firstName, String lastName, String adress, String email, String mobile/*, String group*/) {
-      this.id = Integer.MAX_VALUE;
-      this.firstName = firstName;
-      this.lastName = lastName;
-      this.adress = adress;
-      this.email = email;
-      this.mobile = mobile;
-    //  this.group = group;
-    }
-
-    public contactData(Integer id, String firstName, String lastName, String adress, String email, String mobile/*, String group*/) {
-      this.id = id;
-      this.firstName = firstName;
-      this.lastName = lastName;
-      this.adress = adress;
-      this.email = email;
-      this.mobile = mobile;
-     // this.group = group;
-    }
 
     public String getFirstName() {
       return firstName;
@@ -64,22 +41,48 @@
       return group;
     } */
 
+    public contactData withId(int id) {
+      this.id = id;
+      return this;
+    }
+
+    public contactData withFirstName(String firstName) {
+      this.firstName = firstName;
+      return this;
+    }
+
+    public contactData withLastName(String lastName) {
+      this.lastName = lastName;
+      return this;
+    }
+
+    public contactData withAdress(String adress) {
+      this.adress = adress;
+      return this;
+    }
+
+    public contactData withEmail(String email) {
+      this.email = email;
+      return this;
+    }
+
+    public contactData withMobile(String mobile) {
+      this.mobile = mobile;
+      return this;
+    }
+
+
     @Override
-    public boolean equals(Object obj) {
-      if (obj == this) return true;
-      if (obj == null || obj.getClass() != this.getClass()) return false;
-      var that = (contactData) obj;
-      return Objects.equals(this.firstName, that.firstName) &&
-              Objects.equals(this.lastName, that.lastName) &&
-              Objects.equals(this.adress, that.adress) &&
-              Objects.equals(this.email, that.email) &&
-              Objects.equals(this.mobile, that.mobile); //&&
-      //        Objects.equals(this.group, that.group);
+    public boolean equals(Object o) {
+      if (this == o) return true;
+      if (o == null || getClass() != o.getClass()) return false;
+      contactData that = (contactData) o;
+      return id == that.id && Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName) && Objects.equals(adress, that.adress) && Objects.equals(email, that.email) && Objects.equals(mobile, that.mobile);
     }
 
     @Override
     public int hashCode() {
-      return Objects.hash(firstName, lastName, adress, email, mobile);
+      return Objects.hash(id, firstName, lastName, adress, email, mobile);
     }
 
     @Override
