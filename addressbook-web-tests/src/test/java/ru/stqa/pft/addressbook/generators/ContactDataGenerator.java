@@ -58,9 +58,9 @@ public class ContactDataGenerator {
     XStream xstream = new XStream();
     xstream.processAnnotations(contactData.class);
     String xml = xstream.toXML(contacts);
-    Writer writer = new FileWriter(file);
-    writer.write(xml);
-    writer.close();
+    try (Writer writer = new FileWriter(file)) {
+      writer.write(xml);
+    }
   }
 
   private  List<contactData> generateContacts(int count) {
