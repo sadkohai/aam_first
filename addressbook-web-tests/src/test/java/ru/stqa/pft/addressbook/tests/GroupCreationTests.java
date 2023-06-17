@@ -3,6 +3,8 @@
  import com.google.common.reflect.TypeToken;
  import com.google.gson.Gson;
  import com.thoughtworks.xstream.XStream;
+ import org.junit.platform.commons.logging.Logger;
+ import org.junit.platform.commons.logging.LoggerFactory;
  import org.testng.annotations.DataProvider;
  import org.testng.annotations.Test;
  import ru.stqa.pft.addressbook.model.Groups;
