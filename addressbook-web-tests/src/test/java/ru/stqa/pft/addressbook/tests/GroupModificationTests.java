@@ -20,13 +20,16 @@
    }
    @Test
    public void testGroupModification() throws Exception {
-     Groups before =  app.group().all();
+     Groups before =  app.db().groups();
      groupData modifiedGroup = before.iterator().next();
      groupData group = new groupData().
              withId(modifiedGroup.getId()).withName("test1").withHeader("test2").withFooter("test3");
+     app.GoTo().GroupPage();
      app.group().modify(group);
      assertThat(app.group().Count(), equalTo(before.size()));
-     Groups after =  app.group().all();
+     Groups after =  app.db().groups();
      assertThat(after, CoreMatchers.equalTo(before.without(modifiedGroup).withAdded(group)));
+     verifyGroupListInUI();
    }
+
  }

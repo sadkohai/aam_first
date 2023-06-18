@@ -55,9 +55,8 @@
    }
 
    @Test (dataProvider = "validContactsFromJson")
-   public void testContactCreationTests() throws Exception {
+   public void testContactCreationTests(contactData contact) throws Exception {
      Contacts before = app.contact().all();
-     contactData contact =  new contactData().withFirstName("Anthonio").withLastName("Huan")/*.withPhoto(photo)*/;
      app.contact().gotoAddContact();
      if (! app.contact().chooseGroup()) {
        new GroupCreationTests().testGroupCreation(new groupData().withName("test1").withHeader("test1").withFooter("test1"));
@@ -67,8 +66,8 @@
      app.contact().createContact(contact);
      Contacts after = app.contact().all();
      assertThat(after.size(), equalTo(before.size() + 1));
-     assertThat(after, equalTo(
-             before.withAdded(contact.withId(after.stream().mapToInt((c) -> c.getId()).max().getAsInt()))));
+    assertThat(after, equalTo(
+            before.withAdded(contact.withId(after.stream().mapToInt((c) -> c.getId()).max().getAsInt()))));
    }
 
 

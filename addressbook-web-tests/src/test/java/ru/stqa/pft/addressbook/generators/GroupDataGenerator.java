@@ -37,31 +37,42 @@ public class GroupDataGenerator {
 
   public void run() throws IOException {
     List<groupData> groups = generateGroups(count);
-      if (format.equals("xml")) {
+    if (format.equals("csv")) {
+      saveAsCsv(groups, new File(file));
+    } else if (format.equals("xml")) {
       saveAsXml(groups, new File(file));
     } else if (format.equals("json")) {
       saveAsJson(groups, new File(file));
     } else {
       System.out.println("Unrecognized format " + format);
-      }
+    }
   }
 
   private void saveAsJson(List<groupData> groups, File file) throws IOException {
     Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
     String json = gson.toJson(groups);
-    try (Writer writer = new FileWriter(file)) {
-      writer.write(json);
-    }
+    Writer writer = new FileWriter(file);
+    writer.write(json);
+    writer.close();
   }
+
   private void saveAsXml(List<groupData> groups, File file) throws IOException {
     XStream xstream = new XStream();
     xstream.processAnnotations(groupData.class);
     String xml = xstream.toXML(groups);
-    try (Writer writer = new FileWriter(file)) {
-      writer.write(xml);
-    }
+    Writer writer = new FileWriter(file);
+    writer.write(xml);
+    writer.close();
   }
 
+  private void saveAsCsv(List<groupData> groups, File file) throws IOException {
+    System.out.println(new File(".").getAbsolutePath());
+    Writer writer = new FileWriter(file);
+    for (groupData group : groups) {
+      writer.write(String.format("%s;%s;%s", group.getName(), group.getHeader(), group.getFooter()));
+    }
+    writer.close();
+  }
 
   private  List<groupData> generateGroups(int count) {
     List<groupData> groups = new ArrayList<groupData>();

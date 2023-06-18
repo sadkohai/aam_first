@@ -3,46 +3,83 @@
   import com.google.gson.annotations.Expose;
   import com.thoughtworks.xstream.annotations.XStreamAlias;
   import com.thoughtworks.xstream.annotations.XStreamOmitField;
+  import org.hibernate.annotations.Type;
 
+  import javax.persistence.*;
   import java.io.File;
   import java.util.Objects;
 
-  @XStreamAlias("contact")
+
+  @XStreamAlias("contact") //Наименование XML
+  @Entity //Для SQL определяет класс ContactData привязанным к базе
+  @Table(name="addressbook") //Для SQL привязка к таблице
   public final class contactData {
     @XStreamOmitField
+    @Id
+    @Column(name = "id")
     private int id = Integer.MAX_VALUE;
     @Expose
+    @Column(name = "firstname") //Для SQL
     private String firstName;
     @Expose
+    @Column(name = "lastname") //Для SQL
     private String lastName;
     @Expose
+    @Column(name = "address") //Для SQL
+    @Type(type = "text") ////Для SQL устанавливаем тип колонки/поля для (varchar(225))
     private String adress;
     @Expose
+    @Column(name = "email") //Для SQL
+    @Type(type = "text") ////Для SQL устанавливаем тип колонки/поля для (varchar(225))
     private String email;
     @Expose
+    @Column(name = "email2") //Для SQL
+    @Type(type = "text") ////Для SQL устанавливаем тип колонки/поля для (varchar(225))
     private String email2;
     @Expose
+    @Column(name = "email3") //Для SQL
+    @Type(type = "text") ////Для SQL устанавливаем тип колонки/поля для (varchar(225))
     private String email3;
     @Expose
+    @Transient //Для SQL аннотация исключает колонку
     private String allEmails;
     @Expose
+    @Column(name = "home") //Для SQL
+    @Type(type = "text") ////Для SQL устанавливаем тип колонки/поля для (varchar(225))
     private String homePhone;
+
+    @Override
+    public String toString() {
+      return "contactData{" +
+              "id=" + id +
+              ", firstName='" + firstName + '\'' +
+              ", lastName='" + lastName + '\'' +
+              '}';
+    }
+
     @Expose
+    @Column(name = "mobile") //Для SQL
+    @Type(type = "text") ////Для SQL устанавливаем тип колонки/поля для (varchar(225))
     private String mobilePhone;
     @Expose
+    @Column(name = "work") //Для SQL
+    @Type(type = "text")
     private String workPhone;
     @Expose
+    @Transient //Для SQL аннотация исключает колонку
     private String allPhones;
-    @Expose
-    private File photo;
 
+    @Column(name = "photo") //Для SQL
+    @Type(type = "text") ////Для SQL устанавливаем тип колонки/поля для (varchar(225))
+    @XStreamOmitField
+    transient private File photo;
 
     public int getId() {
       return id;
     }
 
     public File getPhoto() {
-      return photo;
+      return new File(photo.toURI());
     }
 
     public String getEmail2() {
@@ -148,7 +185,7 @@
     }
 
     public contactData withPhoto(File photo) {
-      this.photo = photo;
+      this.photo = new File(photo.getPath());
       return this;
     }
 
@@ -165,17 +202,4 @@
       return Objects.hash(id, firstName, lastName, adress, email, mobilePhone);
     }
 
-    @Override
-    public String toString() {
-      return "contactData[" +
-              "id=" + id +
-              "firstName=" + firstName + '\'' +
-              "lastName=" + lastName + '\'' +
-              "adress=" + adress + '\'' +
-              "email=" + email + '\'' +
-              "mobile=" + mobilePhone + '\'' +
-        //      "group=" + group + + '\'' +
-              '}';
-    }
-
-    }
+  }

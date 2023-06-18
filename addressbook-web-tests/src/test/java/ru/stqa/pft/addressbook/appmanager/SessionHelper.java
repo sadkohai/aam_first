@@ -7,8 +7,8 @@
     public SessionHelper(WebDriver wd) {
       super(wd);
     }
-    public void Login(String username, String password) {
-      wd.get("http://localhost/addressbook/");
+    public void Login(String link, String username, String password) {
+      wd.get(link);
       type(By.name("user"), username);
       type(By.name("pass"), password);
       click(By.xpath("//input[@value='Login']"));

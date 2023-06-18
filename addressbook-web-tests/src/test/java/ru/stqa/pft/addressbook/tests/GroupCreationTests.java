@@ -3,8 +3,6 @@
  import com.google.common.reflect.TypeToken;
  import com.google.gson.Gson;
  import com.thoughtworks.xstream.XStream;
- import org.junit.platform.commons.logging.Logger;
- import org.junit.platform.commons.logging.LoggerFactory;
  import org.testng.annotations.DataProvider;
  import org.testng.annotations.Test;
  import ru.stqa.pft.addressbook.model.Groups;
@@ -62,8 +60,7 @@
      app.group().create(group);
      assertThat(app.group().Count(), equalTo(before.size() + 1));
      Groups after =  app.group().all();
-     assertThat(after, equalTo(
-             before.withAdded(group.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
+     assertThat(after, equalTo(before.withAdded(group.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
    }
 
    @Test (enabled = false)
