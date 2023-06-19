@@ -3,6 +3,7 @@
  import com.google.common.reflect.TypeToken;
  import com.google.gson.Gson;
  import com.thoughtworks.xstream.XStream;
+ import org.hamcrest.Matchers;
  import org.testng.annotations.DataProvider;
  import org.testng.annotations.Test;
  import ru.stqa.pft.addressbook.model.Contacts;
@@ -56,19 +57,17 @@
 
    @Test (dataProvider = "validContactsFromJson")
    public void testContactCreationTests(contactData contact) throws Exception {
-     Contacts before = app.contact().all();
+     Contacts before = app.db().contacts();
      app.contact().gotoAddContact();
      if (! app.contact().chooseGroup()) {
-       new GroupCreationTests().testGroupCreation(new groupData().withName("test1").withHeader("test1").withFooter("test1"));
+       new GroupCreationTests().testGroupCreation(new groupData().withName("test1").withHeader("test2").withFooter("test3"));
        app.contact().gotoAddContact();
        app.contact().chooseGroup();
      }
      app.contact().createContact(contact);
-     Contacts after = app.contact().all();
-     assertThat(after.size(), equalTo(before.size() + 1));
-    assertThat(after, equalTo(
+     assertThat(app.contact().count(), Matchers.equalTo(before.size() + 1)); //сравнение значения из бд и кол-ва записей на странице портала
+     Contacts after = app.db().contacts();
+     assertThat(after, equalTo(
             before.withAdded(contact.withId(after.stream().mapToInt((c) -> c.getId()).max().getAsInt()))));
    }
-
-
  }

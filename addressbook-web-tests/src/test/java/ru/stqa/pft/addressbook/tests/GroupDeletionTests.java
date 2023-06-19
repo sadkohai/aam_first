@@ -13,19 +13,19 @@
 
    @BeforeMethod
    public void ensurePreconditions(){
-     app.GoTo().GroupPage();
      if (app.group().all().size() == 0){
+       app.GoTo().GroupPage();
        app.group().create(new groupData().withName("test1"));
      }
    }
 
    @Test
    public void testGroupDeletionTests() throws Exception {
-     Groups before =  app.group().all();
+     Groups before =  app.db().groups();
      groupData deletedGroup = before.iterator().next();
      app.group().delete(deletedGroup);
      assertThat(app.group().Count(), equalTo(before.size() - 1));
-     Groups after =  app.group().all();
+     Groups after =  app.db().groups();
      assertThat(after, CoreMatchers.equalTo(before.without(deletedGroup)));
      }
 

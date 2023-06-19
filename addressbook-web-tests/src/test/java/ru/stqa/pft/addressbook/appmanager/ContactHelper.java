@@ -132,6 +132,10 @@ public class ContactHelper extends HelperBase{
 //  return contacts;
 //}
 
+public int count() { /*Метод показывает кол-во selected[] в списке*/
+  return wd.findElements(By.name("selected[]")).size();
+}
+
   public Contacts all() {
     Contacts contacts = new Contacts();
     List<WebElement> rows = wd.findElements(By.name("entry"));

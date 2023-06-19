@@ -44,11 +44,14 @@ dependencies {
     implementation 'com.thoughtworks.xstream:xstream:1.4.19'
     implementation 'com.google.code.gson:gson:2.9.0'
     implementation 'ch.qos.logback:logback-classic:1.2.10'
-    implementation 'mysql:mysql-connector-java:8.0.28'
-    implementation 'org.bedework:hibernate-core:5.2.5.1FinalBwPatched'
+    implementation 'mysql:mysql-connector-java:8.0.28' //если не работает попробовать версию как в видео mysql:mysql-connector-java:5.1.38
+    implementation 'org.bedework:hibernate-core:5.2.5.1FinalBwPatched' //если не работает попробовать версию как в видео org.hibernate:hibernate-core:5.1.0.Final
     implementation 'org.hamcrest:hamcrest:2.2'
     implementation 'com.beust:jcommander:1.82'
     implementation 'com.thoughtworks.xstream:xstream:1.4.19'
+    implementation "jakarta.xml.bind:jakarta.xml.bind-api:2.3.2"
+    implementation "org.glassfish.jaxb:jaxb-runtime:2.3.2"
     testImplementation 'junit:junit:4.13.1'
     testImplementation 'org.junit.jupiter:junit-jupiter:5.8.1'
+
 }

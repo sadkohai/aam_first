@@ -13,8 +13,8 @@
 
    @BeforeMethod
    public void ensurePreconditions(){
-     app.GoTo().GroupPage();
      if (app.group().all().size() == 0){
+       app.GoTo().GroupPage();
        app.group().create(new groupData().withName("test1"));
      }
    }
@@ -26,7 +26,7 @@
              withId(modifiedGroup.getId()).withName("test1").withHeader("test2").withFooter("test3");
      app.GoTo().GroupPage();
      app.group().modify(group);
-     assertThat(app.group().Count(), equalTo(before.size()));
+     assertThat(app.group().Count(), equalTo(before.size())); //не нужная проверка (выполняется дольше)
      Groups after =  app.db().groups();
      assertThat(after, CoreMatchers.equalTo(before.without(modifiedGroup).withAdded(group)));
      verifyGroupListInUI();

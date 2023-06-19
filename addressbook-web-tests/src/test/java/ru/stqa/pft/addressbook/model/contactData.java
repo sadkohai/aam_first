@@ -47,16 +47,6 @@
     @Column(name = "home") //Для SQL
     @Type(type = "text") ////Для SQL устанавливаем тип колонки/поля для (varchar(225))
     private String homePhone;
-
-    @Override
-    public String toString() {
-      return "contactData{" +
-              "id=" + id +
-              ", firstName='" + firstName + '\'' +
-              ", lastName='" + lastName + '\'' +
-              '}';
-    }
-
     @Expose
     @Column(name = "mobile") //Для SQL
     @Type(type = "text") ////Для SQL устанавливаем тип колонки/поля для (varchar(225))
@@ -190,16 +180,23 @@
     }
 
     @Override
+    public String toString() {
+      return "contactData{" +
+              "id=" + id +
+              ", firstName='" + firstName + '\'' +
+              ", lastName='" + lastName + '\'' +
+              '}';
+    }
+    @Override
     public boolean equals(Object o) {
       if (this == o) return true;
       if (o == null || getClass() != o.getClass()) return false;
       contactData that = (contactData) o;
-      return id == that.id && Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName) && Objects.equals(adress, that.adress) && Objects.equals(email, that.email) && Objects.equals(mobilePhone, that.mobilePhone);
+      return id == that.id && Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName) && Objects.equals(adress, that.adress) && Objects.equals(email, that.email) && Objects.equals(email2, that.email2) && Objects.equals(email3, that.email3) && Objects.equals(homePhone, that.homePhone) && Objects.equals(mobilePhone, that.mobilePhone) && Objects.equals(workPhone, that.workPhone);
     }
 
     @Override
     public int hashCode() {
-      return Objects.hash(id, firstName, lastName, adress, email, mobilePhone);
+      return Objects.hash(id, firstName, lastName, adress, email, email2, email3, homePhone, mobilePhone, workPhone);
     }
-
   }

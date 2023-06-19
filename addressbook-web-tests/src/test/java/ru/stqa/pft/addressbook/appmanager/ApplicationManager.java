@@ -5,6 +5,7 @@
   import org.openqa.selenium.edge.EdgeDriver;
   import org.openqa.selenium.firefox.FirefoxDriver;
   import org.openqa.selenium.remote.BrowserType;
+  import ru.stqa.pft.addressbook.model.groupData;
 
   import java.io.File;
   import java.io.FileReader;
@@ -32,7 +33,7 @@
       String target = System.getProperty("target", "local");
       properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
 
-      //   dbHelper = new DbHelper();
+         dbHelper = new DbHelper();
 
       if (browser.equals(BrowserType.FIREFOX)) {
         wd = new FirefoxDriver();
@@ -48,6 +49,13 @@
       navigationHelper = new NavigationHelper(wd);
       sessionHelper = new SessionHelper(wd);
       sessionHelper.Login(properties.getProperty("web.baseUrl"), properties.getProperty("web.adminLogin"), properties.getProperty("web.adminPassword"));
+    }
+
+    public void createGroupIfNot() {
+      GoTo().GroupPage();
+      if (db().groups().size() == 0) { //данные из базы (.db().)
+        group().create(new groupData().withName("test1").withHeader("test2").withFooter("test3"));
+      }
     }
 
     public void stop() {

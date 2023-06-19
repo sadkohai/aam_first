@@ -56,10 +56,10 @@
    @Test (dataProvider = "validGroupsFromJson")
    public void testGroupCreation(groupData group) {
      app.GoTo().GroupPage();
-     Groups before =  app.group().all();
+     Groups before =  app.db().groups();
      app.group().create(group);
      assertThat(app.group().Count(), equalTo(before.size() + 1));
-     Groups after =  app.group().all();
+     Groups after =  app.db().groups();
      assertThat(after, equalTo(before.withAdded(group.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
    }
 
