@@ -3,8 +3,11 @@ package ru.stqa.pft.addressbook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.contactData;
+import ru.stqa.pft.addressbook.model.groupData;
 
 import java.util.List;
 
@@ -18,7 +21,7 @@ public class ContactHelper extends HelperBase{
     wd.findElement(By.xpath("//div[@id='content']/form/input[21]")).click();
   }
 
-  public void fillContactForm(contactData contactData/*,  boolean creation */) {
+  public void fillContactForm(contactData contactData,  boolean creation) {
     type(By.name("firstname"), contactData.getFirstName());
     type(By.name("lastname"), contactData.getLastName());
     type(By.name("address"), contactData.getAdress());
@@ -30,11 +33,32 @@ public class ContactHelper extends HelperBase{
     type(By.name("work"), contactData.getWorkPhone());
 //    attach(By.name("photo"), contactData.getPhoto());
 
-//   if (creation) {
-//     new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
-//   } else {
-//     Assert.assertFalse(isElementPresent(By.name("new_group")));
-//   }
+   if (creation){
+    if (contactData.getGroups().size() > 0) {
+      Assert.assertTrue(contactData.getGroups().size() == 1);
+      new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroups().iterator().next().getName());
+      }
+    } else {
+      Assert.assertFalse(isElementPresent(By.name("new_group")));
+    }
+  }
+
+  public void fillContactFormWithoutGroup(contactData contactData) {
+    type(By.name("firstname"), contactData.getFirstName());
+    type(By.name("lastname"), contactData.getLastName());
+    type(By.name("address"), contactData.getAdress());
+    type(By.name("mobile"), contactData.getMobilePhone());
+    type(By.name("email"), contactData.getEmail());
+    type(By.name("email2"), contactData.getEmail2());
+    type(By.name("email3"), contactData.getEmail3());
+    type(By.name("home"), contactData.getHomePhone());
+    type(By.name("work"), contactData.getWorkPhone());
+  }
+
+  public void createWithoutGroup(contactData contact) {
+    gotoAddContact();
+    fillContactFormWithoutGroup(contact);
+    submitContactCreation();
   }
 
   public void gotoAddContact() {
@@ -66,7 +90,7 @@ public class ContactHelper extends HelperBase{
   }
   public void createContact(contactData contact)  {
    gotoAddContact();
-   fillContactForm(contact /*, true*/);
+   fillContactForm(contact, true);
    submitContactCreation();
    returnToContactPage();
   }
@@ -79,6 +103,46 @@ public class ContactHelper extends HelperBase{
       return false;
     }
   }
+  //
+  public void gotoHomePage() {
+    if (isElementPresent(By.id("maintable"))) {
+      return;
+    }
+    click(By.linkText("home"));
+  }
+  public void selectGroup(Contacts contactData) {
+    if (contactData.iterator().next().getGroups().size() > 1) {
+      Assert.assertTrue(contactData.iterator().next().getGroups().size() == 1);
+      new Select(wd.findElement(By.name("group"))).selectByVisibleText(contactData.iterator().next().getGroups().iterator().next().getName());
+    }
+  }
+
+  public void selectGroup(groupData group) {
+    wd.findElement(By.xpath(String.format("//select[@name='to_group']/option[@value='%s']", group.getId()))).click();
+  }
+  public void selectContact(contactData contact) {
+    click(By.xpath(String.format("//input[@type='checkbox']", contact.getId())));
+  }
+
+  public void selectContactWithoutGroup(contactData contact) {
+    new Select(wd.findElement(By.name("group"))).selectByVisibleText("[none]");
+    click(By.xpath(String.format("//input[@type='checkbox']", contact.getId())));
+  }
+
+  public void removeContactFromGroup() {
+    click(By.name("remove"));
+    gotoHomePage();
+  }
+
+  public void getGroupData(groupData groupData) {
+    click(By.xpath(String.format("//select[@name='group']/option[text() = '%s']", groupData.getName())));;
+  }
+
+  public void addContactToGroup() {
+    click(By.name("add"));
+    gotoHomePage();
+  }
+  //
 
   public boolean isThereAContact() {
     return isElementPresent(By.name("selected[]"));
@@ -92,7 +156,7 @@ public class ContactHelper extends HelperBase{
 
   public void modify(contactData contact) {
     editContactById(0);
-    fillContactForm(contact);
+    fillContactForm(contact, false);
     submitContactModification();
   }
 
@@ -118,19 +182,6 @@ public class ContactHelper extends HelperBase{
     List<WebElement> cells = row.findElements(By.tagName("td"));
     cells.get(7).findElement(By.tagName("a")).click();
   }
-
-//public Contacts all() {
-//  Contacts contacts = new Contacts();
-//  List<WebElement> elements = wd.findElements(By.xpath("//*[@name=\"entry\"]")); // 1
-//  for (WebElement element : elements) {
-//    String name = element.findElement(By.cssSelector("tbody > tr > td + td + td")).getText(); // 1
-//    String lastname =  element.findElement(By.cssSelector("tbody > tr > td + td")).getText(); // 1
-//    String allPhones = cells.get(5).getText();
-//    int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-//    contacts.add(new contactData().withId(id).withFirstName(name).withLastName(lastname));
-//  }
-//  return contacts;
-//}
 
 public int count() { /*Метод показывает кол-во selected[] в списке*/
   return wd.findElements(By.name("selected[]")).size();

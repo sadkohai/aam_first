@@ -7,7 +7,9 @@
 
   import javax.persistence.*;
   import java.io.File;
+  import java.util.HashSet;
   import java.util.Objects;
+  import java.util.Set;
 
 
   @XStreamAlias("contact") //Наименование XML
@@ -64,6 +66,11 @@
     @XStreamOmitField
     transient private File photo;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable (name = "address_in_groups",
+            joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
+    private Set<groupData> groups = new HashSet<groupData>();
+
     public int getId() {
       return id;
     }
@@ -116,6 +123,11 @@
 
     public String getAllPhones() {
       return allPhones;
+    }
+
+
+    public Groups getGroups() {
+      return new Groups(groups);
     }
 
     public contactData withId(int id) {
@@ -176,6 +188,11 @@
 
     public contactData withPhoto(File photo) {
       this.photo = new File(photo.getPath());
+      return this;
+    }
+
+    public contactData withGroups(Set<groupData> groups) {
+      this.groups = groups;
       return this;
     }
 
