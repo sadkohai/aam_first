@@ -2,12 +2,13 @@ package ru.stqa.pft.addressbook.tests;
 
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import ru.stqa.pft.addressbook.model.Groups;
 import ru.stqa.pft.addressbook.model.contactData;
 import ru.stqa.pft.addressbook.model.groupData;
 
 import java.io.File;
 
-import static org.testng.AssertJUnit.assertTrue;
+import static org.testng.AssertJUnit.assertEquals;
 
 public class DeletionContactFromGroupTests extends TestBase {
 
@@ -28,14 +29,14 @@ public class DeletionContactFromGroupTests extends TestBase {
   public void testDeletionContactFromGroup() throws Exception {
     contactData before = app.db().contactWithGroup();
     groupData group = before.getGroups().iterator().next();
+    Groups groupsBeforeDeletion = before.getGroups();
     app.contact().gotoHomePage();
     app.contact().getGroupData(group);
     app.contact().selectContact(before);
     app.contact().removeContactFromGroup();
-    contactData after = app.db().contactById(before.getId());
-    System.out.println("11111 " + after);
-    System.out.println("222222 " + group);
-    assertTrue(after.getGroups().contains(group));
+    contactData freshDataContact = app.db().contacts().iterator().next();
+    Groups groupsAfterDeletion = freshDataContact.getGroups();
+    assertEquals(groupsBeforeDeletion.size() - 1, groupsAfterDeletion.size());
     verifyContactListInUI();
   }
 }
