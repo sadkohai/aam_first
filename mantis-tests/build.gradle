@@ -1,20 +1,20 @@
 apply plugin: 'java'
 
 
-test {
-    useTestNG {
-        suites 'src/test/resources/testng.xml'
-    }
-    if (project.hasProperty('browser')) {
-        systemProperty 'browser', "${browser}"
-    }
-    if (project.hasProperty('platform')){
-        systemProperty 'platform', "${platform}"
-    }
-    if (project.hasProperty('verifyUI')){
-        systemProperty 'platform', "${platform}"
-    }
-}
+//test {
+//    useTestNG {
+//        suites 'src/test/resources/testng.xml'
+//    }
+//    if (project.hasProperty('browser')) {
+//        systemProperty 'browser', "${browser}"
+//    }
+//    if (project.hasProperty('platform')){
+//        systemProperty 'platform', "${platform}"
+//    }
+//    if (project.hasProperty('verifyUI')){
+//        systemProperty 'platform', "${platform}"
+//    }
+//}
 
 test {
     useTestNG{}
@@ -32,7 +32,7 @@ dependencies {
     implementation 'commons-net:commons-net:3.4'
     implementation 'ch.qos.logback:logback-classic:1.2.3'
     implementation 'org.subethamail:subethasmtp:3.1.7'
-    implementation 'ru.lanwen.verbalregex:java-verbal-expressions:1.8'
+    implementation 'ru.lanwen.verbalregex:java-verbal-expressions:1.8' //в обучающем видео 1.4
     implementation 'mysql:mysql-connector-java:8.0.23'
     implementation 'org.hibernate:hibernate-core:5.4.20.Final'
     implementation 'biz.futureware.mantis:mantis-axis-soap-client:1.2.19'
