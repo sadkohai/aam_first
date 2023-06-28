@@ -4,6 +4,7 @@
     <bytecodeTargetLevel>
       <module name="mantis-tsts.main" target="19" />
       <module name="mantis-tsts.test" target="19" />
+      <module name="soap-sample" target="19" />
     </bytecodeTargetLevel>
   </component>
 </project>

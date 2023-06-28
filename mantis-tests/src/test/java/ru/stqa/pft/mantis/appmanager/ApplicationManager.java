@@ -26,6 +26,8 @@
 
     private String browser;
 
+    private SoapHelper soapHelper;
+
     public ApplicationManager(String browser) {
       this.browser = browser;
       properties = new Properties();
@@ -33,7 +35,7 @@
 
     public void init() throws IOException {
       String target = System.getProperty("target", "local");
-      properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties",target))));
+      properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
 
       dbHelper = new DbHelper();
 
@@ -49,11 +51,12 @@
     }
 
     public void stop() {
-      if (wd != null){
-        wd.quit();}
+      if (wd != null) {
+        wd.quit();
+      }
     }
 
-    public HttpSession newSession (){
+    public HttpSession newSession() {
       return new HttpSession(this);
     }
 
@@ -63,7 +66,7 @@
 
     public RegistrationHelper registration() {
       if (registrationHelper == null) {
-        registrationHelper =  new RegistrationHelper(this);
+        registrationHelper = new RegistrationHelper(this);
       }
       return registrationHelper;
     }
@@ -79,7 +82,7 @@
       if (wd == null) {
         if (browser.equals(BrowserType.FIREFOX)) {
           wd = new FirefoxDriver();
-        } else if (browser.equals(BrowserType.CHROME)){
+        } else if (browser.equals(BrowserType.CHROME)) {
           wd = new ChromeDriver();
         } else if (browser.equals(BrowserType.IE)) {
           wd = new InternetExplorerDriver();
@@ -91,21 +94,21 @@
       return wd;
     }
 
-    public MailHelper mail(){
+    public MailHelper mail() {
       if (mailHelper == null) {
         mailHelper = new MailHelper(this);
       }
       return mailHelper;
     }
 
-    public JamesHelper james(){
+    public JamesHelper james() {
       if (jamesHelper == null) {
         jamesHelper = new JamesHelper(this);
       }
       return jamesHelper;
     }
 
-    public SessionHelper session(){
+    public SessionHelper session() {
       if (session == null) {
         session = new SessionHelper(this);
       }
@@ -121,5 +124,12 @@
         adminHelper = new AdminHelper(this);
       }
       return adminHelper;
+    }
+
+    public SoapHelper soap() {
+      if (soapHelper == null) {
+        soapHelper = new SoapHelper(this);
+      }
+      return soapHelper;
     }
   }

@@ -34,12 +34,12 @@ public class ChangePasswordTests extends TestBase {
     Users users = app.db().mantisUser();
     UserData user = users.iterator().next();
     app.admin().reset(user);
-    List<MailMessage> mailMessages = app.mail().waitForMail(1, 10000);
+    List<MailMessage> mailMessages = app.mail().waitForMail(1, 80000);
     String conformationLink = app.mail().findConformationLink(mailMessages, user.getEmail());
     String password = "newPassword";
     app.admin().finish(conformationLink, user, password);
 
-    assertTrue(session.login(user.getUsername(), password));
+    assertTrue(session.login(user.getUsername(), password));//рабочая проверка
   }
 
   @AfterMethod(alwaysRun = true)

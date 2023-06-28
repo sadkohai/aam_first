@@ -30,6 +30,20 @@ public class RegistrationTests extends TestBase{
     assertTrue(app.newSession().login(user, password));
   }
 
+  @Test (enabled = false) //провальный тест для порчи сценария
+  public void testRegistrationExtraMail() throws Exception {
+    long now = System.currentTimeMillis();
+    String user = String.format("user%s", now);
+    String email = "user2@localhost.localdomain";
+    String password = "password";
+    app.james().createUser(user, password);
+    app.registration().start(user, email);
+    List<MailMessage> mailMessages = app.james().waitForMail(user, password, 60000);
+    String confirmationLink = app.session().findConfirmationLink(mailMessages, email);
+    app.registration().finish(confirmationLink, password);
+    assertTrue(app.newSession().login(user, password));
+  }
+
   //@AfterMethod (alwaysRun = true)
   public void stopMailServer() {
     app.mail().stop();
