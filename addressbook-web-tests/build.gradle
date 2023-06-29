@@ -1,6 +1,5 @@
 apply plugin: 'java'
 
-
 task testGroups(type: Test) {
     useTestNG {
         suites 'src/test/resources/testng-groups.xml'
@@ -16,20 +15,20 @@ task testGroups(type: Test) {
     }
 }
 
-task testContacts(type: Test) {
-    useTestNG {
-        suites 'src/test/resources/testng-contacts.xml'
-    }
-    if (project.hasProperty('browser')) {
-        systemProperty 'browser', "${browser}"
-    }
-    if (project.hasProperty('platform')){
-        systemProperty 'platform', "${platform}"
-    }
-    if (project.hasProperty('verifyUI')){
-        systemProperty 'platform', "${platform}"
-    }
-}
+//task testContacts(type: Test) {
+//    useTestNG {
+//        suites 'src/test/resources/testng-contacts.xml'
+//    }
+//    if (project.hasProperty('browser')) {
+//        systemProperty 'browser', "${browser}"
+//    }
+//    if (project.hasProperty('platform')){
+//        systemProperty 'platform', "${platform}"
+//    }
+//    if (project.hasProperty('verifyUI')){
+//        systemProperty 'platform', "${platform}"
+//    }
+//}
 
 test {
     useTestNG{}
@@ -58,5 +57,4 @@ dependencies {
     implementation "org.glassfish.jaxb:jaxb-runtime:2.3.2"
     testImplementation 'junit:junit:4.13.1'
     testImplementation 'org.junit.jupiter:junit-jupiter:5.8.1'
-
 }
